@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "grdData", "grdData.csproj", "{2EE0A293-1C8C-49E1-B85C-0A12950B99AE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FA243DB5-E0C6-47C9-B90C-D1B57D1F79DF}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2EE0A293-1C8C-49E1-B85C-0A12950B99AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EE0A293-1C8C-49E1-B85C-0A12950B99AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EE0A293-1C8C-49E1-B85C-0A12950B99AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EE0A293-1C8C-49E1-B85C-0A12950B99AE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B6116225-E5BE-4912-B4AE-9EBF2A6020F6}
+	EndGlobalSection
+EndGlobal
