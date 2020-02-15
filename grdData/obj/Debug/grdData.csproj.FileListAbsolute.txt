@@ -8,3 +8,14 @@ C:\Tutorials\GrdData\grdData\obj\Debug\grdData.csproj.GenerateResource.cache
 C:\Tutorials\GrdData\grdData\obj\Debug\grdData.exe
 C:\Tutorials\GrdData\grdData\obj\Debug\grdData.pdb
 C:\Tutorials\GrdData\grdData\obj\Debug\grdData.FrmMsg.resources
+C:\Tutoriais\GrdData\grdData\bin\Debug\grdData.exe.config
+C:\Tutoriais\GrdData\grdData\bin\Debug\grdData.exe
+C:\Tutoriais\GrdData\grdData\bin\Debug\grdData.pdb
+C:\Tutoriais\GrdData\grdData\obj\Debug\grdData.FrmData.resources
+C:\Tutoriais\GrdData\grdData\obj\Debug\grdData.FrmMsg.resources
+C:\Tutoriais\GrdData\grdData\obj\Debug\grdData.Properties.Resources.resources
+C:\Tutoriais\GrdData\grdData\obj\Debug\grdData.csproj.GenerateResource.cache
+C:\Tutoriais\GrdData\grdData\obj\Debug\grdData.exe
+C:\Tutoriais\GrdData\grdData\obj\Debug\grdData.pdb
+C:\Tutoriais\GrdData\grdData\obj\Debug\grdData.FrmDetails.resources
+C:\Tutoriais\GrdData\grdData\obj\Debug\grdData.csprojAssemblyReference.cache

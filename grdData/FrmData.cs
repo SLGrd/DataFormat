@@ -39,7 +39,12 @@ namespace grdData
         public FrmData() { InitializeComponent(); }
 
         private void FrmData_Load(object sender, EventArgs e)
-        {            
+        {
+            this.Icon = Properties.Resources.edit_clear_list;
+
+            //  Fill Cultures combo dropdown list
+            CmbCultures_Fill();
+
             #region Format Sample Data
             grdItems = new List<GrdItem>(){
                 new GrdItem( "d",                       "Short Date"                                  ),
@@ -80,7 +85,7 @@ namespace grdData
                 new GrdItem( "dddd dd / MMM / yyyy  ",  "Long weekday + day + short month + full year "),
                                                                                                         
                 new GrdItem( "T",                       "Short time"                                   ),
-                new GrdItem( "dd/MM/yy T",              "Short date + short time"                      ),
+                new GrdItem( "dd/MM/yy dddd",           "Short date + week day"                        ),
                                                                                                         
                 new GrdItem( "hh",                      "Hour"                                         ),
                 new GrdItem( "mm",                      "Minutes"                                      ),
@@ -100,10 +105,9 @@ namespace grdData
             dgvData.DataSource = grdItems;
             //  Configutrd grid
             GrdData_Config();
-            //  Fill Cultures combo dropdown list
-            CmbCultures_Fill();
-            //  Applies formatting options to grid cells
-            CellData_Format();
+
+            //  Seleciona a CultureInfo corrente e aplica a formatacao corresondente            
+            cmbCultures.Text = CultureInfo.CurrentCulture.DisplayName;
         }
 
         private void CmbCultures_Fill()
@@ -115,12 +119,12 @@ namespace grdData
             cmbCultures.DisplayMember = "CultureSpec";
             cmbCultures.ValueMember   = "CultureName";
             cmbCultures.Sorted  = true;
-            cmbCultures.Text    = CultureInfo.CurrentCulture.DisplayName;            
+                       
         }
 
         private void CmbCultures_SelectedIndexChanged(object sender, EventArgs e)
         {
-            CellData_Format();
+            CellData_Format();  //  Monta e move formatacao para o grid
         }
 
         private void DtpData_ValueChanged(object sender, EventArgs e)
@@ -130,17 +134,21 @@ namespace grdData
 
         private void CellData_Format()
         {
+            //  Monta e move formatacao para o grid
             for (int i = 0; i < grdItems.Count; i++)
             {
-                dgvData.Rows[i].Cells[2].Style.Format = grdItems[i].Fmt.ToString();
-                dgvData.Rows[i].Cells[2].Value = 
-                    DateTime.Parse(dtpData.Text.ToString() + " " + dtpTime.Value.TimeOfDay.ToString());
+                //  Move a string de formatacao para montar o estilo da celula
+                dgvData.Rows[i].Cells[2].Style.Format = grdItems[i].Fmt.ToString(); 
+                //  Move os dados de CultureInfo para ser o bormat provider da celula
                 if (cmbCultures.SelectedIndex > -1)
                 {
                     dgvData.Rows[i].Cells[2].Style.FormatProvider =
                         new CultureInfo(((CultureItm)cmbCultures.Items[cmbCultures.SelectedIndex]).CultureName);
                 }
-            }     
+                //  Move a data a ser formatada para o value da celula. Veja que o type do dado tem que ser DATETIME,
+                dgvData.Rows[i].Cells[2].Value =
+                    DateTime.Parse(dtpData.Text.ToString() + " " + dtpTime.Value.TimeOfDay.ToString());
+            }
         }
 
         private void GrdData_Config()
@@ -149,11 +157,16 @@ namespace grdData
             dgvData.EnableHeadersVisualStyles = false;
 
             //  Header --> colors e fontes          
-            dgvData.ColumnHeadersDefaultCellStyle.BackColor = Color.LightSlateGray;
+            dgvData.ColumnHeadersDefaultCellStyle.BackColor = Color.CadetBlue;
             dgvData.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+            //  Para conservar a mesma cor no header mesmo qdo a coluna for selecionada
+            dgvData.ColumnHeadersDefaultCellStyle.SelectionBackColor = dgvData.ColumnHeadersDefaultCellStyle.BackColor;
 
             //  O fonte default vem do componente pai do grid, no caso o form
+            //  Se vc quiser outro fonte pode escolher dentro a lista dos fontes instalados
+            //       Esta é a lista ==> InstalledFontCollection font = new InstalledFontCollection();
             dgvData.ColumnHeadersDefaultCellStyle.Font = new Font(dgvData.Font.Name, dgvData.Font.Size + 1, FontStyle.Regular);
+            dgvData.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             //  Altura da linha de cabeçalho. Primeiro habilita resize e depois altera. 2.4 vezes a altura do fonte.
             dgvData.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.EnableResizing;
@@ -162,8 +175,7 @@ namespace grdData
             //  Define o estilo da linha divisoria entre os headers
             dgvData.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
 
-            //  Rows --> Cor de fundo, fonte e cor da fonte
-            dgvData.DefaultCellStyle.SelectionBackColor = Color.LightSteelBlue;
+            //  Rows --> Cor de fundo, fonte e cor da fonte            
             dgvData.DefaultCellStyle.Font = new Font(dgvData.Font.Name, dgvData.Font.Size - 1, FontStyle.Regular);
             dgvData.DefaultCellStyle.ForeColor = Color.DarkSlateGray;
 
@@ -172,10 +184,6 @@ namespace grdData
 
             //  Altura das linhas de texto. 1.8 vezes a altura do fonte
             dgvData.RowTemplate.Height = Convert.ToInt16(1.8 * dgvData.DefaultCellStyle.Font.Height);
-
-            //  Row Headers são celulas vazias a esquerda de cada linha. Como no excel onde fica a numeracao
-            dgvData.RowHeadersVisible = true;
-            dgvData.RowHeadersDefaultCellStyle.BackColor = Color.LightSteelBlue;
 
             //  Fazendo altura = largura por estética apenas. Nao é necessário.
             dgvData.RowHeadersWidth = dgvData.RowTemplate.Height;
@@ -192,14 +200,12 @@ namespace grdData
             dgvData.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
 
             //  Coluna  2   -   Descricao
-            dgvData.Columns[1].HeaderText = "Descricao";
-            dgvData.Columns[1].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvData.Columns[1].HeaderText = "Descricao";         
             dgvData.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dgvData.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
   
             //  Coluna  3   -   Data formaada
-            dgvData.Columns[2].HeaderText = "Data Formatada";
-            dgvData.Columns[2].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvData.Columns[2].HeaderText = "Data Formatada";            
             dgvData.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
             //  Dimensiona a largura da coluna pelo maior conteudo entre as cels da coluna
             dgvData.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -211,21 +217,18 @@ namespace grdData
             //  Cor da parte do grid nao preenchida pela lista igual a das linhas
             dgvData.BackgroundColor = dgvData.DefaultCellStyle.BackColor;
 
-            //  Seleção de linhas            
+            //  Seleção de linhas    
+            //  Seleciona uma ou mais linhas ( control + click )
+            dgvData.MultiSelect = false;
             //  Marca a linha toda
             dgvData.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            //  Seleciona uma ou mais linhas ( control + click )
-            dgvData.MultiSelect = true;
             //  Cor da linha selecionada
-            dgvData.DefaultCellStyle.SelectionBackColor = Color.LightSteelBlue;
+            dgvData.DefaultCellStyle.SelectionBackColor = Color.CadetBlue;
             //  Limpa a selecao na apresentacao do grid
             dgvData.ClearSelection();
 
             //  Tira o rowheader
             dgvData.RowHeadersVisible = false;
-
-            //  Muda seleção de linhas para apenas uma de cada vez
-            dgvData.MultiSelect = false;
 
             //  Protege o grid de modificações
             //  --------------------------------------------
@@ -240,10 +243,6 @@ namespace grdData
 
             //  Impede que o usuario mude (com o mouse) a altura de linha
             dgvData.AllowUserToResizeRows = true;
-
-            //  Impede que o usuario mude a largura de uma coluna
-            dgvData.AllowUserToResizeColumns = true;
-
             //  Permite que o usuario mude as colunas de lugar
             dgvData.AllowUserToOrderColumns = true;
         }
@@ -279,6 +278,23 @@ namespace grdData
                     //  Restore light on main form
                     this.Opacity = 1.0;
                 }
+            }
+        }
+
+        private void LnkDetails_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            //  Prepara a passagem de parametro para o fomr auxiliar
+            CultureInfo ci = new CultureInfo(((CultureItm)cmbCultures.Items[cmbCultures.SelectedIndex]).CultureName);
+
+            using( FrmDetails frmDetails = new FrmDetails( ci))
+            { 
+                //  Localizacao do from child para facilidade e visualizacao
+                Rectangle screenRectangle = this.RectangleToScreen(this.ClientRectangle);
+                frmDetails.StartPosition = FormStartPosition.Manual;                           
+                frmDetails.Location = new Point( screenRectangle.Left + lnkDetails.Left, screenRectangle.Top + dgvData.Top );
+
+                //  Show form at choosen location
+                frmDetails.ShowDialog();
             }
         }
     }

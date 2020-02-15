@@ -35,6 +35,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.lnkDetails = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,8 +85,8 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label1.Location = new System.Drawing.Point(12, 13);
+            this.label1.ForeColor = System.Drawing.Color.Black;
+            this.label1.Location = new System.Drawing.Point(12, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 16);
             this.label1.TabIndex = 4;
@@ -95,8 +96,8 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label2.Location = new System.Drawing.Point(129, 13);
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(129, 12);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(38, 16);
             this.label2.TabIndex = 4;
@@ -106,19 +107,31 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label3.Location = new System.Drawing.Point(246, 13);
+            this.label3.ForeColor = System.Drawing.Color.Black;
+            this.label3.Location = new System.Drawing.Point(246, 12);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 16);
             this.label3.TabIndex = 4;
             this.label3.Text = "Região";
             // 
+            // lnkDetails
+            // 
+            this.lnkDetails.AutoSize = true;
+            this.lnkDetails.Location = new System.Drawing.Point(653, 33);
+            this.lnkDetails.Name = "lnkDetails";
+            this.lnkDetails.Size = new System.Drawing.Size(77, 20);
+            this.lnkDetails.TabIndex = 5;
+            this.lnkDetails.TabStop = true;
+            this.lnkDetails.Text = "Detalhes ";
+            this.lnkDetails.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LnkDetails_LinkClicked);
+            // 
             // FrmData
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.DarkGray;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.CausesValidation = false;
             this.ClientSize = new System.Drawing.Size(1008, 501);
+            this.Controls.Add(this.lnkDetails);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -128,8 +141,7 @@
             this.Controls.Add(this.dgvData);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "FrmData";
-            this.ShowIcon = false;
-            this.Text = "Formatação de Datas";
+            this.Text = "FORMATAÇÃO DE DATAS";
             this.Load += new System.EventHandler(this.FrmData_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).EndInit();
             this.ResumeLayout(false);
@@ -146,6 +158,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.LinkLabel lnkDetails;
     }
 }
 

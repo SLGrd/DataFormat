@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FrmDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmDetails.Designer.cs">
+      <DependentUpon>FrmDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmData.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +69,9 @@
     <EmbeddedResource Include="FrmData.resx">
       <DependentUpon>FrmData.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmDetails.resx">
+      <DependentUpon>FrmDetails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmMsg.resx">
       <DependentUpon>FrmMsg.cs</DependentUpon>
     </EmbeddedResource>
@@ -74,6 +83,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include=".editorconfig" />
     <None Include="Properties\Settings.settings">
@@ -88,6 +98,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit-clear-list.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
